@@ -2,41 +2,45 @@ const userData = [
     {
         "id": "1",
         "name": "abc",
-        "regno": "043",
-        "age": "19"
+        "regno": "043"
     },
     {
         "id": "2",
         "name": "def",
-        "regno": "044",
-        "age": "19"
+        "regno": "044"
     }
 ]
 
-const getAllUsers = (request, response) => {
+const getAllUserData=(request,response)=>
+{
     response.status(200).send(userData)
 }
 
-const getUserById = (request, response) => {
-    const userId = request.params.id;
-    userData.map((userID) => {
-        if (userID.id === userId) {
-            response.status(200).send(userID)
+const getUserDataById=(request,response)=>
+{
+    const userID=request.params.id;
+    userData.map((userId)=>{
+        if(userId.id===userID)
+        {
+            response.status(200).send(userId)
         }
-        else {
-            response.status(404).send(userId)
+        else{
+            response.status(404).send(`${userID} not exists!`)
         }
     })
 }
-const addUserData = (request, response) => {
-    response.status(200).render('index')
+
+const renderForm=(request,response)=>
+{
+response.status(200).render('index')
 }
 
-const receiveUserData = (request, response) => {
-    const data = request.body;
-    console.log(data)
+const addUserData=(request,response)=>
+{
+    let data=request.body;
+    console.log(data);
     userData.push(data)
     response.status(200).redirect('/api/v1/users')
 }
 
-module.exports = { getAllUsers, getUserById, addUserData, receiveUserData }
+module.exports={getAllUserData,getUserDataById,renderForm,addUserData}
